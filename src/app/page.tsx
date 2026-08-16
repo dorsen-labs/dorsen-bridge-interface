@@ -1,69 +1,84 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { motion } from "framer-motion"
+import { Shield, Zap, Globe } from "lucide-react"
+import { BridgeCard } from "@/components/bridge/BridgeCard"
+import { LiquidityOverview } from "@/components/bridge/LiquidityOverview"
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="relative min-h-screen">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,194,229,0.06)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]">
+          <div
+            className="h-full w-full"
+            style={{
+              backgroundImage: `linear-gradient(rgba(8,194,229,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(8,194,229,0.3) 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+            }}
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </div>
+
+      {/* Hero Section */}
+      <section className="relative z-10 pt-[120px] pb-16 px-4 sm:px-6">
+        <div className="mx-auto max-w-[1280px] text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <h1 className="text-[36px] sm:text-[44px] lg:text-[48px] font-bold leading-[1.1] tracking-tight mb-4">
+              <span className="text-primary">DORSEN</span>{" "}
+              <span className="text-card-foreground">BRIDGE</span>
+            </h1>
+            <p className="text-[17px] text-muted max-w-[650px] mx-auto mb-8">
+              Secure Cross-Chain Asset Transfer
+            </p>
+            <p className="text-sm text-muted/70 max-w-[650px] mx-auto mb-10">
+              Transfer digital assets across Ethereum, BNB Chain and DORSEN through
+              a simple, secure bridge experience.
+            </p>
+          </motion.div>
+
+          {/* Feature badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-wrap items-center justify-center gap-3 mb-10"
           >
-            Documentation
-          </a>
+            <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground shadow-sm">
+              <Shield className="h-4 w-4 text-primary" />
+              <span>Secure</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground shadow-sm">
+              <Zap className="h-4 w-4 text-primary" />
+              <span>Fast</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground shadow-sm">
+              <Globe className="h-4 w-4 text-primary" />
+              <span>Multi-Chain</span>
+            </div>
+          </motion.div>
+
+          {/* Liquidity Cards */}
+          <LiquidityOverview />
+
+          {/* Bridge Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="flex justify-center"
+          >
+            <BridgeCard />
+          </motion.div>
         </div>
-      </main>
+      </section>
     </div>
-  );
+  )
 }
