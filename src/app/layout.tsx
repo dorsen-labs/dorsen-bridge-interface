@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { WalletProvider } from "@/components/WalletProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { headers } from "next/headers";
+import ContextProvider from "@/context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
   title: "DORSEN Bridge — Secure Cross-Chain Asset Transfer",
   description:
     "Transfer digital assets securely across supported blockchain networks with DORSEN Bridge.",
+  icons: {
+    icon: "/images/dorsen.svg",
+  },
   openGraph: {
     title: "DORSEN Bridge — Secure Cross-Chain Asset Transfer",
     description:
@@ -28,11 +32,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headersObj = await headers();
+  const cookies = headersObj.get("cookie");
+
   return (
     <html
       lang="en"
@@ -40,13 +47,13 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col antialiased">
-        <WalletProvider>
+        <ContextProvider cookies={cookies}>
           <ThemeProvider>
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
           </ThemeProvider>
-        </WalletProvider>
+        </ContextProvider>
       </body>
     </html>
   );

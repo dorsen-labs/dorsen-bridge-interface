@@ -43,7 +43,7 @@ export const networks: NetworkConfig[] = [
     chainId: 137,
     rpcUrl: process.env.NEXT_PUBLIC_POLYGON_RPC_URL,
     explorerUrl: "https://polygonscan.com",
-    status: "coming-soon",
+    status: "active",
   },
 ]
 

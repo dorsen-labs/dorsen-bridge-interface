@@ -1,10 +1,9 @@
 "use client"
 
 import { useState, useCallback, useRef } from "react"
-import { useAccount } from "wagmi"
 import { ArrowUpDown, Settings } from "lucide-react"
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react"
 import { cn } from "@/lib/utils"
-import { useWalletModal } from "@/hooks/useWalletModal"
 import { getActiveNetworks, getNetworkById } from "@/config/networks"
 import { NetworkSelector } from "./NetworkSelector"
 import { AmountInput } from "./AmountInput"
@@ -28,8 +27,8 @@ const RECEIVE_TOKENS: Record<string, { symbol: string; icon: string }> = {
 
 export function BridgeCard() {
   const activeNetworks = getActiveNetworks()
-  const { isConnected } = useAccount()
-  const { openWalletModal } = useWalletModal()
+  const { open: openModal } = useAppKit()
+  const { isConnected } = useAppKitAccount()
 
   const [fromNetwork, setFromNetwork] = useState(activeNetworks[0]?.id || "eth")
   const [toNetwork, setToNetwork] = useState(activeNetworks[1]?.id || "bnb")
@@ -124,7 +123,7 @@ export function BridgeCard() {
 
   const handleAction = () => {
     if (buttonState.action === "connect") {
-      openWalletModal()
+      openModal()
     } else if (buttonState.action === "bridge") {
       setTxStatus("confirming")
     }
@@ -134,9 +133,12 @@ export function BridgeCard() {
     <>
       <div
         className={cn(
-          "w-full max-w-[560px] rounded-2xl border p-6 shadow-xl",
+          "w-full max-w-[560px] rounded-2xl border p-6 shadow-xl relative",
           "bg-card border-border",
-          "backdrop-blur-xl"
+          "backdrop-blur-xl",
+          "before:absolute before:inset-[-1px] before:rounded-2xl before:p-px",
+          "before:bg-gradient-to-b before:from-primary/20 before:via-transparent before:to-primary/10",
+          "before:-z-10"
         )}
       >
         <div className="flex items-center justify-between mb-5">
@@ -187,7 +189,7 @@ export function BridgeCard() {
             tokenIcon={SEND_TOKEN.icon}
             networkId={fromNetwork}
             label="You Send"
-            balance={isConnected ? "--" : "0.00"}
+            balance="0.00"
           />
 
           <AmountInput

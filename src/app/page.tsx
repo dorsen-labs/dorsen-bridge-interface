@@ -4,24 +4,12 @@ import { motion } from "framer-motion"
 import { Shield, Zap, Globe } from "lucide-react"
 import { BridgeCard } from "@/components/bridge/BridgeCard"
 import { LiquidityOverview } from "@/components/bridge/LiquidityOverview"
+import { AnimatedBackground } from "@/components/layout/AnimatedBackground"
 
 export default function HomePage() {
   return (
     <div className="relative min-h-screen">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,194,229,0.06)_0%,transparent_70%)]" />
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]">
-          <div
-            className="h-full w-full"
-            style={{
-              backgroundImage: `linear-gradient(rgba(8,194,229,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(8,194,229,0.3) 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-            }}
-          />
-        </div>
-      </div>
+      <AnimatedBackground />
 
       {/* Hero Section */}
       <section className="relative z-10 pt-[120px] pb-16 px-4 sm:px-6">

@@ -22,7 +22,7 @@ const sections = [
       { id: "eth", name: "Ethereum", status: "Available" },
       { id: "bnb", name: "BNB Chain", status: "Available" },
       { id: "dorsen", name: "DORSEN", status: "Available" },
-      { id: "polygon", name: "Polygon", status: "Coming Soon" },
+      { id: "polygon", name: "Polygon", status: "Available" },
     ],
   },
   {
