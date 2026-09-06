@@ -4,7 +4,7 @@ import Link from "next/link"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme/ThemeToggle"
-import { ConnectWallet } from "@/components/wallet/ConnectWallet"
+import ConnectWallet from "@/components/wallet/ConnectWallet"
 
 type MobileMenuProps = {
   open: boolean
