@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   title: "DORSEN Bridge — Secure Cross-Chain Asset Transfer",
   description:
     "Transfer digital assets securely across supported blockchain networks with DORSEN Bridge.",
-  icons: {
-    icon: "/images/dorsen.svg",
-  },
+  // icons: {
+  //   icon: "/images/dorsen.svg",
+  // },
   openGraph: {
     title: "DORSEN Bridge — Secure Cross-Chain Asset Transfer",
     description:

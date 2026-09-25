@@ -1,4 +1,7 @@
-export type NetworkStatus = "active" | "coming-soon"
+export type NetworkStatus =
+  | "active"
+  | "inactive"
+  | "coming-soon"
 
 export type NetworkConfig = {
   id: string
@@ -6,8 +9,10 @@ export type NetworkConfig = {
   shortName: string
   symbol: string
   logo: string
-  chainId?: number
+
+  chainId: number
   rpcUrl?: string
   explorerUrl?: string
+
   status: NetworkStatus
 }

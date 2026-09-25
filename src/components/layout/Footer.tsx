@@ -15,7 +15,15 @@ export function Footer() {
                 height={32}
                 className="rounded-lg object-contain"
               />
-              <span className="text-lg font-bold text-card-foreground">
+              <span
+                className="font-extrabold text-lg tracking-tight font-sans"
+                style={{
+                  background: 'linear-gradient(20deg, rgb(28, 102, 166) 10%, rgb(230, 250, 236) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
                 DORSEN
               </span>
             </div>
@@ -27,28 +35,24 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-card-foreground mb-4">
-              Product
+              Products
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/"
+                  href="https://swap.dorsen.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-sm text-muted hover:text-primary transition-colors"
                 >
-                  Bridge
+                  Swap
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/history"
-                  className="text-sm text-muted hover:text-primary transition-colors"
-                >
-                  History
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/docs"
+                  href="https://docs.dorsen.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-sm text-muted hover:text-primary transition-colors"
                 >
                   Docs
@@ -74,7 +78,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border pt-8 text-center">
           <p className="text-sm text-muted/60">
-            &copy; 2026 DORSEN. All rights reserved.
+            &copy; 2026 Dorsen Labs. All rights reserved.
           </p>
         </div>
       </div>

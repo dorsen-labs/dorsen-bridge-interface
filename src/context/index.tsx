@@ -16,18 +16,26 @@ if (!projectId) {
 const metadata = {
   name: "DORSEN Bridge",
   description: "DORSEN Bridge - Secure Cross-Chain Asset Transfer",
-  url: "https://dorsen.io",
+  url: "https://dorsen.org",
   icons: ["https://avatars.githubusercontent.com/u/179229932"],
 }
 
 createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: networks as unknown as [AppKitNetwork, ...AppKitNetwork[]],
+  networks: networks,
   defaultNetwork: networks[0],
+  chainImages: {
+    [networks[0].id]: "/images/coin/dorsen.png",
+  },
+  enableNetworkSwitch: true,
   metadata,
   features: {
-    analytics: true,
+    analytics: true, // Optional - defaults to your Cloud configuration
+    swaps: false,
+    socials: false,
+    email: false,
+    onramp: false,
   },
 })
 

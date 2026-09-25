@@ -1,56 +1,194 @@
-import { type BridgeQuote, type BridgeTransaction } from "@/types/bridge"
-import { getNetworkById } from "@/config/networks"
-import { getTokenBySymbol } from "@/config/tokens"
+import {
+  type BridgeQuote,
+  type BridgeTransaction,
+} from "@/types/bridge"
+
+import {
+  getNetworkById,
+} from "@/config/networks"
+
+import {
+  getTokenBySymbol,
+} from "@/config/tokens"
 
 export async function fetchBridgeQuote(
   fromNetworkId: string,
   toNetworkId: string,
   tokenSymbol: string,
-  amount: string
+  amount: string,
 ): Promise<BridgeQuote | null> {
-  const sourceNetwork = getNetworkById(fromNetworkId)
-  const destNetwork = getNetworkById(toNetworkId)
-  const token = getTokenBySymbol(tokenSymbol)
+  const sourceNetwork =
+    getNetworkById(fromNetworkId)
 
-  if (!sourceNetwork || !destNetwork || !token || !amount) return null
+  const destNetwork =
+    getNetworkById(toNetworkId)
 
-  // Mock quote - replace with real API
-  const sendAmount = parseFloat(amount)
-  const bridgeFee = sendAmount * 0.001
-  const receiveAmount = sendAmount - bridgeFee
+  if (
+    !sourceNetwork ||
+    !destNetwork ||
+    !amount
+  ) {
+    return null
+  }
+
+  /*
+   * Resolve token separately for
+   * source and destination chains.
+   */
+  const sourceToken =
+    getTokenBySymbol(
+      sourceNetwork.chainId,
+      tokenSymbol
+    )
+
+  const destinationToken =
+    getTokenBySymbol(
+      destNetwork.chainId,
+      tokenSymbol
+    )
+
+  if (
+    !sourceToken ||
+    !destinationToken
+  ) {
+    console.error(
+      "Token configuration missing",
+      {
+        tokenSymbol,
+        sourceChainId:
+          sourceNetwork.chainId,
+        destinationChainId:
+          destNetwork.chainId,
+      }
+    )
+
+    return null
+  }
+
+  /*
+   * ERC20 token must have a contract
+   * address.
+   */
+  if (
+    !sourceToken.address ||
+    !destinationToken.address
+  ) {
+    console.error(
+      "Token contract address missing",
+      {
+        tokenSymbol,
+        sourceNetwork:
+          sourceNetwork.name,
+        destinationNetwork:
+          destNetwork.name,
+      }
+    )
+
+    return null
+  }
+
+  const sendAmount =
+    parseFloat(amount)
+
+  if (
+    !Number.isFinite(sendAmount) ||
+    sendAmount <= 0
+  ) {
+    return null
+  }
+
+  /*
+   * Mock quote for now.
+   *
+   * Replace this section with your
+   * actual bridge API later.
+   */
+  const bridgeFee =
+    sendAmount * 0.01 /// 1%
+
+  const receiveAmount =
+    sendAmount - bridgeFee
 
   return {
     sourceNetwork,
     destNetwork,
-    token,
+
+    // Keep source token as the
+    // primary token in the quote.
+    token: sourceToken,
+
     sendAmount: amount,
-    receiveAmount: receiveAmount.toFixed(6),
-    networkFee: "0.001",
-    bridgeFee: bridgeFee.toFixed(6),
-    estimatedTime: "~2-5 minutes",
-    minimumReceived: (receiveAmount * 0.995).toFixed(6),
+
+    receiveAmount:
+      receiveAmount.toFixed(6),
+    bridgeFee:
+      bridgeFee.toFixed(6),
+
+    estimatedTime:
+      "~2-5 minutes",
+
     route: {
       name: "DORSEN Bridge",
+
       steps: [
-        { network: fromNetworkId, action: "Lock" },
-        { network: "bridge", action: "Transfer" },
-        { network: toNetworkId, action: "Mint" },
+        {
+          network:
+            fromNetworkId,
+          action: "Lock",
+        },
+        {
+          network: "bridge",
+          action: "Transfer",
+        },
+        {
+          network:
+            toNetworkId,
+          action: "Mint",
+        },
       ],
     },
+
+    /*
+     * These are useful for the
+     * actual transaction later.
+     */
+    sourceToken,
+    destinationToken,
   }
 }
 
 export async function submitBridgeTransaction(
-  _quote: BridgeQuote
+  quote: BridgeQuote
 ): Promise<BridgeTransaction> {
-  // Mock transaction - replace with real implementation
+  /*
+   * TODO:
+   *
+   * 1. Check wallet chain
+   * 2. Check token allowance
+   * 3. Approve bridge contract
+   * 4. Call bridge contract
+   * 5. Wait for transaction
+   * 6. Return real tx hash
+   */
+
   return {
     id: `0x${Date.now().toString(16)}`,
-    date: new Date().toISOString(),
-    fromNetwork: _quote.sourceNetwork.id,
-    toNetwork: _quote.destNetwork.id,
-    asset: _quote.token.symbol,
-    amount: _quote.sendAmount,
+
+    date:
+      new Date().toISOString(),
+
+    fromNetwork:
+      quote.sourceNetwork.id,
+
+    toNetwork:
+      quote.destNetwork.id,
+
+    asset:
+      quote.token.symbol,
+
+    amount:
+      quote.sendAmount,
+
     status: "pending",
   }
 }

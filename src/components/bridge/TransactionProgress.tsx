@@ -2,14 +2,15 @@
 
 import { X, Check, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { BridgeTransactionStatus } from "@/types/bridge"
 
 type TransactionProgressProps = {
-  status: BridgeTransactionStatus
+  status: string
   fromNetwork: string
   toNetwork: string
   amount: string
   token: string
+  txHash?: `0x${string}` | null
+  explorerUrl?: string
   onClose: () => void
 }
 
@@ -27,6 +28,8 @@ export function TransactionProgress({
   toNetwork,
   amount,
   token,
+  txHash,
+  explorerUrl,
   onClose,
 }: TransactionProgressProps) {
   const getStepState = (stepKey: string) => {
@@ -93,13 +96,13 @@ export function TransactionProgress({
                   className={cn(
                     "flex h-6 w-6 items-center justify-center rounded-full text-xs",
                     state === "completed" &&
-                      "bg-success text-white",
+                    "bg-success text-white",
                     state === "current" &&
-                      "bg-primary text-white animate-pulse",
+                    "bg-primary text-white animate-pulse",
                     state === "failed" &&
-                      "bg-error text-white",
+                    "bg-error text-white",
                     state === "pending" &&
-                      "bg-muted/10 text-muted"
+                    "bg-muted/10 text-muted"
                   )}
                 >
                   {state === "completed" ? (
@@ -152,10 +155,18 @@ export function TransactionProgress({
             <p className="text-xs text-muted mt-1">
               Your assets have been successfully transferred.
             </p>
-            <button className="mt-3 flex items-center gap-1 mx-auto text-sm text-primary hover:text-primary-light">
-              View Transaction
-              <ExternalLink className="h-3 w-3" />
-            </button>
+            {txHash && explorerUrl && (
+              <a
+                href={`${explorerUrl.replace(/\/$/, "")}/tx/${txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1 text-sm text-primary hover:text-primary-light"
+              >
+                View Transaction
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            )}
+
           </div>
         )}
 
