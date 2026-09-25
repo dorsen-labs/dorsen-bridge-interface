@@ -63,59 +63,59 @@ export function TokenSelector({
       </button>
 
       {open && !disabled && (
-  <>
-    <div
-      className="fixed inset-0 z-[90]"
-      onClick={() => setOpen(false)}
-    />
+        <>
+          <div
+            className="fixed inset-0 z-[90]"
+            onClick={() => setOpen(false)}
+          />
 
-    <div
-      className={cn(
-        "absolute right-0 bottom-full z-[100]",
-        "mb-2 w-[220px]",
-        "rounded-xl",
-        "border border-dropdown-border",
-        "bg-dropdown-bg",
-        "p-2 shadow-2xl"
+          <div
+            className={cn(
+              "absolute right-0 bottom-full z-[100]",
+              "mb-2 w-[220px]",
+              "rounded-xl",
+              "border border-dropdown-border",
+              "bg-dropdown-bg",
+              "p-2 shadow-2xl"
+            )}
+          >
+            <div className="px-3 py-2 text-xs font-medium text-muted">
+              Select Asset
+            </div>
+
+            <button
+              type="button"
+              onClick={handleSelect}
+              className={cn(
+                "flex w-full items-center gap-2",
+                "rounded-lg px-3 py-2",
+                "text-left",
+                "bg-primary/10 text-primary"
+              )}
+            >
+              <Image
+                src="/images/coin/usdt.png"
+                alt="USDT"
+                width={24}
+                height={24}
+                className="rounded-full object-contain"
+              />
+
+              <div className="flex-1">
+                <span className="text-sm font-medium">
+                  USDT
+                </span>
+
+                <span className="block text-xs text-muted">
+                  Tether USD
+                </span>
+              </div>
+
+              <Check className="h-3 w-3" />
+            </button>
+          </div>
+        </>
       )}
-    >
-      <div className="px-3 py-2 text-xs font-medium text-muted">
-        Select Asset
-      </div>
-
-      <button
-        type="button"
-        onClick={handleSelect}
-        className={cn(
-          "flex w-full items-center gap-2",
-          "rounded-lg px-3 py-2",
-          "text-left",
-          "bg-primary/10 text-primary"
-        )}
-      >
-        <Image
-          src="/images/coin/usdt.png"
-          alt="USDT"
-          width={24}
-          height={24}
-          className="rounded-full object-contain"
-        />
-
-        <div className="flex-1">
-          <span className="text-sm font-medium">
-            USDT
-          </span>
-
-          <span className="block text-xs text-muted">
-            Tether USD
-          </span>
-        </div>
-
-        <Check className="h-3 w-3" />
-      </button>
-    </div>
-  </>
-)}
     </div>
   )
 }

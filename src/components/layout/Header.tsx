@@ -27,7 +27,15 @@ export function Header() {
             className="rounded-lg object-contain"
           />
 
-          <span className="text-lg font-bold text-card-foreground">
+          <span
+            className="font-extrabold text-lg tracking-tight font-sans"
+            style={{
+              background: 'linear-gradient(20deg, rgb(28, 102, 166) 10%, rgb(230, 250, 236) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
             DORSEN
           </span>
         </Link>
@@ -53,21 +61,21 @@ export function Header() {
           <ConnectWallet compact />
 
           {/* Mobile Menu Button */}
-          <button
+          {/* <button
             type="button"
             className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-muted hover:text-card-foreground transition-colors"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
             <Menu className="h-5 w-5" />
-          </button>
+          </button> */}
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <MobileMenu
+      {/* <MobileMenu
         open={mobileOpen}
-        onClose={() => setMobileOpen(false)} />
+        onClose={() => setMobileOpen(false)} /> */}
     </header>
   )
 }

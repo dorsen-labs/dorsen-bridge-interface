@@ -12,7 +12,7 @@ type BridgeSettingsProps = {
 export function BridgeSettings({ open, onClose }: BridgeSettingsProps) {
   const [slippage, setSlippage] = useState("Auto")
   const [gas, setGas] = useState("Standard")
-  const [deadline, setDeadline] = useState("20")
+  const [deadline, setDeadline] = useState("15")
 
   if (!open) return null
 

@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { TokenSelector } from "./TokenSelector"
+import { convertToAbbreviated } from "@/lib/convertToAbbreviated"
 
 type AmountInputProps = {
   value: string
@@ -44,7 +45,7 @@ export function AmountInput({
   }
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2.5">
       <label className="block text-xs font-medium text-muted">
         {label}
       </label>
@@ -94,10 +95,10 @@ export function AmountInput({
             </div>
           ) : (
             <div className="relative z-30">
-            <TokenSelector
-              value={token}
-              onChange={onTokenChange || (() => {})}
-            />
+              <TokenSelector
+                value={token}
+                onChange={onTokenChange || (() => { })}
+              />
             </div>
           )}
         </div>
@@ -105,7 +106,7 @@ export function AmountInput({
       {!readOnly && (
         <div className="flex justify-end">
           <span className="text-xs text-muted">
-            Balance: {loading ? "..." : balance}
+            Balance: {loading ? "..." : convertToAbbreviated(balance)}
           </span>
         </div>
       )}
